@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "View Party";
+}
+
+@model Wedding
+
+<h1 class="text-center">@Model.WedderOne & @Model.WedderTwo's Wedding</h1>
+
+<h5>Date: @Model.StartDate</h5>
+
+<h6>Guests:</h6>
+<ul>
+    @if (@Model.Attendees.Count == 0)
+    {
+        <li>No one attending! Be the first!</li>
+    }
+    @foreach (Guest g in @Model.Attendees)
+    {
+        <li>@g.AGuest.FirstName @g.AGuest.LastName</li>
+    }
+</ul>
+
+@if (@Model.Attendees.Any(p => p.UserId == @ViewBag.User.UserId))
+{
+    <h6>You are already attending!</h6>
+}
+else
+{
+    <a asp-controller="Home" asp-action="Attend" asp-route-userId="@ViewBag.User.UserId"
+        asp-route-weddingId="@Model.WeddingId" class="btn btn-primary">Attend</a>
+}

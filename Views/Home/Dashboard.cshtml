@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@model List<Wedding>
+
+<div class="text-center">
+    <div class="d-flex justify-content-around">
+
+        <h1>Hello @ViewBag.User.FirstName!</h1>
+
+        <a href="/Logout" class="btn btn-danger">Logout</a>
+        <a href="/CreateWedding" class="btn btn-primary">New Wedding</a>
+    </div>
+
+    <table class="table table-hover bg-light mt-3">
+        <thead>
+            <tr>
+                <th>Wedding</th>
+                <th>Date</th>
+                <th>Guest</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (Wedding w in @Model)
+            {
+                <tr>
+                    <td><a asp-controller="Home" asp-action="ShowWedding" asp-route-weddingId="@w.WeddingId">@w.WedderOne &
+                            @w.WedderTwo</a></td>
+                    <td>@w.StartDate</td>
+                    <td>@w.Attendees.Count</td>
+                    <td>@if (w.Creator.UserId == ViewBag.User.UserId)
+                        {
+                            <a asp-controller="Home" asp-action="Delete" asp-route-weddingId="@w.WeddingId">Delete</a>
+                        }
+                        else
+                        {
+                            if (w.Attendees.Any(r => r.UserId == ViewBag.User.UserId))
+                            {
+                                <a asp-controller="Home" asp-action="Ditch" asp-route-userId="@ViewBag.User.UserId"
+                                    asp-route-weddingId="@w.WeddingId">Ditch</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Home" asp-action="Attend" asp-route-userId="@ViewBag.User.UserId"
+                                    asp-route-weddingId="@w.WeddingId">Attend</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>

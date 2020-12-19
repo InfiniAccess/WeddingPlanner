@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Create Wedding";
+}
+
+@model Wedding
+
+<div class="text-center d-flex flex-column">
+    <div class="d-flex justify-content-around">
+        <h2>Plan Your Wedding</h2>
+        <a href="/Logout" class="btn btn-danger">Logout</a>
+        <a href="/Dashboard" class="btn btn-primary">Dashboard</a>
+    </div>
+    <form action="/PushWedding" method="post">
+        <h2 class="text-center"></h2>
+        <div class="form-group">
+            <label asp-for="WedderOne"></label>
+            <input asp-for="WedderOne" class="form-control">
+            <span class="text-danger" asp-validation-for="WedderOne"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="WedderTwo"></label>
+            <input asp-for="WedderTwo" class="form-control">
+            <span class="text-danger" asp-validation-for="WedderTwo"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate"></label>
+            <input asp-for="StartDate" class="form-control">
+            <span class="text-danger" asp-validation-for="StartDate"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" class="form-control">
+            <span class="text-danger" asp-validation-for="Address"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Create">
+    </form>
+</div>
